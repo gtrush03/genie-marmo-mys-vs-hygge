@@ -1,0 +1,94 @@
+.eyebrow { display: inline-block; font-family: var(--mono); font-size: 11px; letter-spacing: .22em; text-transform: uppercase; color: var(--accent); margin-bottom: 20px; padding-bottom: 6px; border-bottom: 1px solid var(--line); }
+
+/* Pastoral / editorial-essay finishing */
+.composed { padding: clamp(64px, 10vw, 110px) 0; position: relative; }
+.composed h2 { font-family: var(--display); font-weight: 500; font-style: italic; font-size: clamp(28px, 4.2vw, 46px); line-height: 1.1; letter-spacing: -0.015em; margin-bottom: 28px; }
+.composed h2 em { font-style: normal; color: var(--accent); }
+.composed p { color: var(--ink1); margin-bottom: 1.1em; }
+.composed p em { font-style: italic; color: var(--ink0); }
+
+.composed-narrative-quote p:first-of-type::first-letter,
+.composed-manifesto p:first-of-type::first-letter {
+  font-family: var(--display); font-size: 3.6em; float: left; line-height: .85;
+  padding: 0.06em 0.12em 0 0; color: var(--accent); font-style: italic; font-weight: 500;
+}
+
+/* Three pillars */
+.pillar-grid { display: grid; gap: clamp(20px, 2.4vw, 36px); grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); margin-top: 8px; }
+.pillar { background: var(--bg1); border: 1px solid var(--line); border-radius: 4px; padding: clamp(24px, 3vw, 36px); }
+.pillar-meta { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; margin-bottom: 18px; padding-bottom: 14px; border-bottom: 1px solid var(--line); }
+.pillar-label { font-family: var(--display); font-style: italic; font-size: 26px; color: var(--ink0); }
+.pillar-value { font-family: var(--mono); font-size: 11px; letter-spacing: .14em; text-transform: uppercase; color: var(--ink-mute); }
+.pillar p { color: var(--ink1); margin: 0; font-size: 15px; line-height: 1.65; }
+
+/* Spec table */
+.table-scroll { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+.composed-spec-table table { width: 100%; border-collapse: collapse; min-width: 560px; }
+.composed-spec-table th, .composed-spec-table td { padding: 18px 16px; text-align: left; vertical-align: top; border-bottom: 1px solid var(--line); font-size: 15px; }
+.composed-spec-table thead th { font-family: var(--mono); font-size: 11px; letter-spacing: .2em; text-transform: uppercase; color: var(--accent); border-bottom: 1px solid var(--line-strong); padding-bottom: 14px; }
+.composed-spec-table tbody th { font-family: var(--display); font-style: italic; font-weight: 500; color: var(--ink0); width: 28%; }
+.composed-spec-table tbody td { color: var(--ink1); }
+.composed-spec-table tbody tr:hover { background: var(--bg1); }
+
+/* Pull quote — used for "where they diverge" */
+.composed-pull-quote { background: var(--bg1); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+.composed-pull-quote blockquote {
+  font-family: var(--display); font-style: italic; font-weight: 500;
+  font-size: clamp(22px, 3.4vw, 36px); line-height: 1.3;
+  max-width: 30ch; margin: 8px auto 0; padding-left: 28px;
+  border-left: 2px solid var(--accent); color: var(--ink0);
+}
+.composed-pull-quote h2 { margin-bottom: 36px; }
+
+/* Manifesto */
+.composed-manifesto { background: linear-gradient(180deg, var(--bg0), var(--bg1)); }
+
+/* Figures */
+.composed-figure { padding: 0; margin: 0; max-width: 1200px; margin: 0 auto; padding: 0 clamp(20px, 4vw, 32px) clamp(48px, 6vw, 80px); }
+.composed-figure img { width: 100%; height: auto; aspect-ratio: 3/2; object-fit: cover; border-radius: 4px; display: block; }
+.composed-figure figcaption { font-family: var(--mono); font-size: 11px; letter-spacing: .14em; text-transform: uppercase; color: var(--ink-mute); margin-top: 14px; text-align: center; }
+
+/* Gallery override for composed flavour */
+.composed-gallery { padding: clamp(48px, 6vw, 80px) 0; }
+.composed-gallery .gallery-grid { display: grid; gap: 12px; grid-template-columns: repeat(2, 1fr); }
+@media (min-width: 720px) { .composed-gallery .gallery-grid { grid-template-columns: repeat(4, 1fr); } }
+.composed-gallery figure { margin: 0; position: relative; overflow: hidden; border-radius: 4px; aspect-ratio: 3/4; }
+.composed-gallery figure img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform .6s ease; }
+.composed-gallery figure:hover img { transform: scale(1.04); }
+.composed-gallery figcaption {
+  position: absolute; left: 12px; bottom: 12px;
+  font-family: var(--mono); font-size: 10px; letter-spacing: .2em; text-transform: uppercase;
+  color: var(--bg0); background: color-mix(in srgb, var(--ink0) 70%, transparent);
+  padding: 5px 10px; border-radius: 2px;
+}
+
+/* CTA band */
+.composed-cta-band { background: var(--ink0); color: var(--bg0); margin-top: clamp(48px, 6vw, 80px); }
+.composed-cta-band h2 { color: var(--bg0); }
+.composed-cta-band h2 em { color: var(--accent-soft); }
+.composed-cta-band p { color: color-mix(in srgb, var(--bg0) 80%, transparent); max-width: 50ch; margin: 0 auto 28px; }
+.composed-cta-band .cta-row { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; margin-top: 28px; }
+.btn-ghost { display: inline-flex; align-items: center; min-height: 44px; padding: 0 22px; border: 1px solid color-mix(in srgb, var(--bg0) 30%, transparent); color: var(--bg0); text-decoration: none; font-family: var(--mono); font-size: 12px; letter-spacing: .16em; text-transform: uppercase; border-radius: 2px; transition: all .2s; }
+.btn-ghost:hover { background: var(--accent); border-color: var(--accent); color: var(--bg0); }
+
+/* Hero adjustments */
+.hero { min-height: 92vh; background: var(--bg0); }
+.hero h1 { font-style: normal; font-weight: 500; }
+.hero h1 em { font-style: italic; color: var(--accent); }
+.hero-bg img { filter: brightness(0.92) saturate(1.05); }
+.hero-bg::after { background: linear-gradient(to bottom, color-mix(in srgb, var(--bg0) 30%, transparent) 0%, color-mix(in srgb, var(--bg0) 10%, transparent) 50%, var(--bg0) 100%); }
+
+/* Subtle linen texture */
+body { background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence baseFrequency='.65' numOctaves='2'/><feColorMatrix values='0 0 0 0 0.96  0 0 0 0 0.93  0 0 0 0 0.88  0 0 0 .14 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>"); background-blend-mode: multiply; }
+
+/* Section number motif */
+.composed::before { content: "§"; position: absolute; top: clamp(40px, 5vw, 64px); right: clamp(20px, 4vw, 36px); font-family: var(--display); font-style: italic; color: var(--accent-soft); font-size: 28px; opacity: .5; pointer-events: none; }
+.composed-pull-quote::before, .composed-cta-band::before { display: none; }
+
+/* Mobile polish */
+@media (max-width: 640px) {
+  .composed h2 { font-size: 28px; }
+  .composed-pull-quote blockquote { font-size: 22px; padding-left: 20px; }
+  .pillar { padding: 20px; }
+  .composed-spec-table table { min-width: 480px; }
+}

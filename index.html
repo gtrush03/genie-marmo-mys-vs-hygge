@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<!--
+  ARCHETYPE: story-scroll
+  BEST FOR: long-form narratives, brand stories, mission-driven launches,
+            product reveals with pacing, editorial features, retreats, films.
+  REFERENCES: apple.com/iphone, fragmented.fm, are.na/blog longreads.
+  STRUCTURE: nav · hero (full-bleed image + h1 anchor) · chapter 01 · pull-quote ·
+             chapter 02 · gallery interstitial · chapter 03 · cta · footer.
+  Sections are numbered, sticky chapter labels track scroll progress.
+-->
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <title>Mys vs Hygge — Two northern words for the same low light.</title>
+  <meta name="description" content="Two northern words for the same low light.">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+
+  <meta property="og:title" content="Mys vs Hygge">
+  <meta property="og:description" content="Two northern words for the same low light.">
+  <meta property="og:image" content="assets/hero.jpg">
+  <meta property="og:type" content="article">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="assets/hero.jpg">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,400;1,500&family=Source+Serif+4:ital,wght@0,400;0,600;1,400&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg0: #f4ede3;
+      --bg1: #faf6f2;
+      --bg2: #ffffff;
+      --ink0: #2b2620;
+      --ink1: #49443d;
+      --ink-mute: #858078;
+      --line: #d6cfc6;
+      --line-strong: #b8b1a9;
+      --accent: #b8552c;
+      --accent-soft: #dcb09a;
+      --display: 'Cormorant Garamond', 'GT Sectra', Georgia, serif;
+      --body: 'Source Serif 4', 'Source Serif Pro', Georgia, serif;
+      --mono: 'JetBrains Mono', ui-monospace, monospace;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--bg0); color: var(--ink0);
+      font-family: var(--body);
+      font-size: clamp(16px, 0.5vw + 14px, 19px); line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+    .wrap { max-width: 1200px; margin: 0 auto; padding: 0 clamp(20px, 4vw, 32px); }
+    .narrow { max-width: 680px; margin: 0 auto; padding: 0 clamp(20px, 4vw, 32px); }
+
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 50;
+      padding: 18px clamp(20px, 4vw, 32px);
+      display: flex; justify-content: space-between; align-items: center;
+      background: linear-gradient(to bottom, color-mix(in srgb, var(--bg0) 60%, transparent), transparent);
+      mix-blend-mode: difference;
+    }
+    nav .brand { font-family: var(--display); font-weight: 600; color: var(--ink0); text-decoration: none; font-size: 17px; letter-spacing: -0.01em; }
+    nav .chapter-tracker { font-family: var(--mono); font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--ink0); }
+
+    .hero {
+      position: relative; min-height: 100vh; display: flex; align-items: flex-end;
+      padding: 0 0 clamp(48px, 8vw, 96px); overflow: hidden;
+    }
+    .hero-bg { position: absolute; inset: 0; z-index: 0; }
+    .hero-bg img { width: 100%; height: 100%; object-fit: cover; }
+    .hero-bg::after {
+      content: ""; position: absolute; inset: 0;
+      background: linear-gradient(to bottom, transparent 0%, color-mix(in srgb, var(--bg0) 30%, transparent) 50%, var(--bg0) 100%);
+    }
+    .hero-content { position: relative; z-index: 1; padding: 0 clamp(20px, 4vw, 32px); max-width: 900px; }
+    .hero h1 {
+      font-family: var(--display);
+      font-size: clamp(48px, 9vw, 110px); line-height: 0.96; letter-spacing: -0.03em;
+      font-weight: 600; font-style: italic;
+      margin-top: 24px;
+    }
+    .hero h1 em { font-style: normal; color: var(--accent); }
+    .hero .lede { color: var(--ink1); margin-top: 28px; font-size: clamp(18px, 1vw + 14px, 22px); max-width: 56ch; }
+
+    .kicker {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-family: var(--mono); font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase;
+      color: var(--ink-mute);
+      padding: 8px 14px;
+      border: 1px solid var(--accent-soft); border-radius: 999px;
+    }
+    .kicker .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--accent); }
+
+    .chapter { padding: clamp(96px, 14vw, 180px) 0; position: relative; }
+    .chapter h2 {
+      font-family: var(--display); font-weight: 600;
+      font-size: clamp(32px, 5vw, 56px); line-height: 1.05; letter-spacing: -0.025em;
+      margin: 24px 0;
+    }
+    .chapter h2 em { font-style: italic; color: var(--accent); }
+    .chapter .num {
+      font-family: var(--mono); font-size: 12px; letter-spacing: 0.22em; text-transform: uppercase;
+      color: var(--accent);
+    }
+    .chapter p { margin-top: 24px; color: var(--ink1); }
+    .chapter p:first-of-type::first-letter {
+      font-family: var(--display); font-size: 4em; line-height: 0.9;
+      float: left; padding: 0.05em 0.12em 0 0; color: var(--accent); font-weight: 600;
+    }
+
+    .pullquote {
+      padding: clamp(64px, 10vw, 120px) 0;
+      background: var(--bg1);
+      border-top: 1px solid var(--line); border-bottom: 1px solid var(--line);
+    }
+    .pullquote blockquote {
+      font-family: var(--display); font-style: italic; font-weight: 500;
+      font-size: clamp(28px, 5vw, 56px); line-height: 1.2; letter-spacing: -0.02em;
+      max-width: 22ch; margin: 0 auto; text-align: center;
+    }
+    .pullquote blockquote em { color: var(--accent); font-style: normal; }
+    .pullquote cite { display: block; margin-top: 32px; text-align: center; font-style: normal; font-family: var(--mono); font-size: 12px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--ink-mute); }
+
+    .gallery { padding: clamp(64px, 10vw, 120px) 0; }
+    .gallery-grid {
+      display: grid; gap: 8px; grid-template-columns: repeat(2, 1fr);
+    }
+    @media (min-width: 720px) { .gallery-grid { grid-template-columns: repeat(4, 1fr); } }
+    .gallery-grid img {
+      width: 100%; height: 100%; object-fit: cover; aspect-ratio: 3/4; border-radius: 8px;
+      transition: transform .6s ease;
+    }
+    .gallery-grid img:hover { transform: scale(1.02); }
+
+    .cta-section { padding: clamp(80px, 12vw, 140px) 0; text-align: center; }
+    .cta-section h2 { font-family: var(--display); font-style: italic; font-size: clamp(36px, 6vw, 64px); line-height: 1.05; letter-spacing: -0.025em; }
+    .cta-section h2 em { font-style: normal; color: var(--accent); }
+    .cta-section p { color: var(--ink1); margin: 24px auto 0; max-width: 50ch; }
+    .btn {
+      display: inline-flex; align-items: center; gap: 8px;
+      min-height: 56px; padding: 0 28px;
+      border-radius: 12px; font-weight: 500; font-size: 16px;
+      text-decoration: none; transition: transform .2s ease;
+      margin-top: 36px;
+    }
+    .btn-primary { background: var(--accent); color: var(--bg0); }
+    .btn-primary:hover { transform: translateY(-1px); }
+
+    footer { border-top: 1px solid var(--line); padding: 48px 0; }
+    footer .row { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 24px; align-items: center; }
+    footer .links { display: flex; flex-wrap: wrap; gap: 24px; font-size: 14px; }
+    footer .links a { color: var(--ink1); text-decoration: none; }
+    footer .links a:hover { color: var(--accent); }
+    footer .made { font-family: var(--mono); font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--ink-mute); }
+
+    @media (prefers-reduced-motion: no-preference) {
+      .reveal { opacity: 0; transform: translateY(30px); animation: reveal .9s ease-out forwards; animation-timeline: view(); animation-range: entry 0% cover 30%; }
+      @keyframes reveal { to { opacity: 1; transform: translateY(0); } }
+    }
+
+    .eyebrow { display: inline-block; font-family: var(--mono); font-size: 11px; letter-spacing: .22em; text-transform: uppercase; color: var(--accent); margin-bottom: 20px; padding-bottom: 6px; border-bottom: 1px solid var(--line); }
+
+/* Pastoral / editorial-essay finishing */
+.composed { padding: clamp(64px, 10vw, 110px) 0; position: relative; }
+.composed h2 { font-family: var(--display); font-weight: 500; font-style: italic; font-size: clamp(28px, 4.2vw, 46px); line-height: 1.1; letter-spacing: -0.015em; margin-bottom: 28px; }
+.composed h2 em { font-style: normal; color: var(--accent); }
+.composed p { color: var(--ink1); margin-bottom: 1.1em; }
+.composed p em { font-style: italic; color: var(--ink0); }
+
+.composed-narrative-quote p:first-of-type::first-letter,
+.composed-manifesto p:first-of-type::first-letter {
+  font-family: var(--display); font-size: 3.6em; float: left; line-height: .85;
+  padding: 0.06em 0.12em 0 0; color: var(--accent); font-style: italic; font-weight: 500;
+}
+
+/* Three pillars */
+.pillar-grid { display: grid; gap: clamp(20px, 2.4vw, 36px); grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); margin-top: 8px; }
+.pillar { background: var(--bg1); border: 1px solid var(--line); border-radius: 4px; padding: clamp(24px, 3vw, 36px); }
+.pillar-meta { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; margin-bottom: 18px; padding-bottom: 14px; border-bottom: 1px solid var(--line); }
+.pillar-label { font-family: var(--display); font-style: italic; font-size: 26px; color: var(--ink0); }
+.pillar-value { font-family: var(--mono); font-size: 11px; letter-spacing: .14em; text-transform: uppercase; color: var(--ink-mute); }
+.pillar p { color: var(--ink1); margin: 0; font-size: 15px; line-height: 1.65; }
+
+/* Spec table */
+.table-scroll { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+.composed-spec-table table { width: 100%; border-collapse: collapse; min-width: 560px; }
+.composed-spec-table th, .composed-spec-table td { padding: 18px 16px; text-align: left; vertical-align: top; border-bottom: 1px solid var(--line); font-size: 15px; }
+.composed-spec-table thead th { font-family: var(--mono); font-size: 11px; letter-spacing: .2em; text-transform: uppercase; color: var(--accent); border-bottom: 1px solid var(--line-strong); padding-bottom: 14px; }
+.composed-spec-table tbody th { font-family: var(--display); font-style: italic; font-weight: 500; color: var(--ink0); width: 28%; }
+.composed-spec-table tbody td { color: var(--ink1); }
+.composed-spec-table tbody tr:hover { background: var(--bg1); }
+
+/* Pull quote — used for "where they diverge" */
+.composed-pull-quote { background: var(--bg1); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+.composed-pull-quote blockquote {
+  font-family: var(--display); font-style: italic; font-weight: 500;
+  font-size: clamp(22px, 3.4vw, 36px); line-height: 1.3;
+  max-width: 30ch; margin: 8px auto 0; padding-left: 28px;
+  border-left: 2px solid var(--accent); color: var(--ink0);
+}
+.composed-pull-quote h2 { margin-bottom: 36px; }
+
+/* Manifesto */
+.composed-manifesto { background: linear-gradient(180deg, var(--bg0), var(--bg1)); }
+
+/* Figures */
+.composed-figure { padding: 0; margin: 0; max-width: 1200px; margin: 0 auto; padding: 0 clamp(20px, 4vw, 32px) clamp(48px, 6vw, 80px); }
+.composed-figure img { width: 100%; height: auto; aspect-ratio: 3/2; object-fit: cover; border-radius: 4px; display: block; }
+.composed-figure figcaption { font-family: var(--mono); font-size: 11px; letter-spacing: .14em; text-transform: uppercase; color: var(--ink-mute); margin-top: 14px; text-align: center; }
+
+/* Gallery override for composed flavour */
+.composed-gallery { padding: clamp(48px, 6vw, 80px) 0; }
+.composed-gallery .gallery-grid { display: grid; gap: 12px; grid-template-columns: repeat(2, 1fr); }
+@media (min-width: 720px) { .composed-gallery .gallery-grid { grid-template-columns: repeat(4, 1fr); } }
+.composed-gallery figure { margin: 0; position: relative; overflow: hidden; border-radius: 4px; aspect-ratio: 3/4; }
+.composed-gallery figure img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform .6s ease; }
+.composed-gallery figure:hover img { transform: scale(1.04); }
+.composed-gallery figcaption {
+  position: absolute; left: 12px; bottom: 12px;
+  font-family: var(--mono); font-size: 10px; letter-spacing: .2em; text-transform: uppercase;
+  color: var(--bg0); background: color-mix(in srgb, var(--ink0) 70%, transparent);
+  padding: 5px 10px; border-radius: 2px;
+}
+
+/* CTA band */
+.composed-cta-band { background: var(--ink0); color: var(--bg0); margin-top: clamp(48px, 6vw, 80px); }
+.composed-cta-band h2 { color: var(--bg0); }
+.composed-cta-band h2 em { color: var(--accent-soft); }
+.composed-cta-band p { color: color-mix(in srgb, var(--bg0) 80%, transparent); max-width: 50ch; margin: 0 auto 28px; }
+.composed-cta-band .cta-row { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; margin-top: 28px; }
+.btn-ghost { display: inline-flex; align-items: center; min-height: 44px; padding: 0 22px; border: 1px solid color-mix(in srgb, var(--bg0) 30%, transparent); color: var(--bg0); text-decoration: none; font-family: var(--mono); font-size: 12px; letter-spacing: .16em; text-transform: uppercase; border-radius: 2px; transition: all .2s; }
+.btn-ghost:hover { background: var(--accent); border-color: var(--accent); color: var(--bg0); }
+
+/* Hero adjustments */
+.hero { min-height: 92vh; background: var(--bg0); }
+.hero h1 { font-style: normal; font-weight: 500; }
+.hero h1 em { font-style: italic; color: var(--accent); }
+.hero-bg img { filter: brightness(0.92) saturate(1.05); }
+.hero-bg::after { background: linear-gradient(to bottom, color-mix(in srgb, var(--bg0) 30%, transparent) 0%, color-mix(in srgb, var(--bg0) 10%, transparent) 50%, var(--bg0) 100%); }
+
+/* Subtle linen texture */
+body { background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence baseFrequency='.65' numOctaves='2'/><feColorMatrix values='0 0 0 0 0.96  0 0 0 0 0.93  0 0 0 0 0.88  0 0 0 .14 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>"); background-blend-mode: multiply; }
+
+/* Section number motif */
+.composed::before { content: "§"; position: absolute; top: clamp(40px, 5vw, 64px); right: clamp(20px, 4vw, 36px); font-family: var(--display); font-style: italic; color: var(--accent-soft); font-size: 28px; opacity: .5; pointer-events: none; }
+.composed-pull-quote::before, .composed-cta-band::before { display: none; }
+
+/* Mobile polish */
+@media (max-width: 640px) {
+  .composed h2 { font-size: 28px; }
+  .composed-pull-quote blockquote { font-size: 22px; padding-left: 20px; }
+  .pillar { padding: 20px; }
+  .composed-spec-table table { min-width: 480px; }
+}
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="#" class="brand">Mys vs Hygge</a>
+  <span class="chapter-tracker">MYS · HYGGE</span>
+</nav>
+
+<section class="hero">
+  <div class="hero-bg"><img src="assets/hero.jpg" alt="A quiet candle in the long northern dark"></div>
+  <div class="hero-content">
+    <span class="kicker"><span class="dot"></span>A COMPARATIVE ESSAY · NORDIC LEXICONS</span>
+    <h1><em>mys</em> & <em>hygge</em></h1>
+    <p class="lede">Two northern words for the same low light — and the quiet differences between them.</p>
+  </div>
+</section>
+
+      <section class="composed composed-narrative-quote">
+        <div class="narrow">
+          <span class="eyebrow">I · OPENING</span>
+          <h2>Two words for the same low light</h2>
+          <p>Every northern country keeps a private word for the season of long darkness — a word for blankets, for slow food, for the hour the lamps go on. In Denmark that word is <em>hygge</em>. In Sweden it is <em>mys</em>.</p>
+          <p>They look like translations of each other. They are not, quite. The differences are small, and the small differences are the whole point.</p>
+        </div>
+      </section>
+      <section class="composed composed-three-pillars">
+        <div class="wrap">
+          <span class="eyebrow">II · DEFINITIONS</span>
+          <h2>What each word actually means</h2>
+          <div class="pillar-grid">
+            
+            <article class="pillar">
+              <div class="pillar-meta">
+                <span class="pillar-label">hygge</span>
+                <span class="pillar-value">Danish (n.)</span>
+              </div>
+              <p>Hygge, pronounced hue-guh and generally translated as the art of cosiness. A way of life for Danes that embodies a sense of coziness, simplicity, and being present.</p>
+            </article>
+            <article class="pillar">
+              <div class="pillar-meta">
+                <span class="pillar-label">mys</span>
+                <span class="pillar-value">Swedish (n.)</span>
+              </div>
+              <p>Mys translates to English roughly as cosiness but can also be used as a verb meaning to get comfy or cosy, to cuddle or snuggle (att mysa), or as an adjective meaning cosy (mysig).</p>
+            </article>
+            <article class="pillar">
+              <div class="pillar-meta">
+                <span class="pillar-label">shared root</span>
+                <span class="pillar-value">the dark</span>
+              </div>
+              <p>Both came about because of the long, dark winter days in these northern latitudes. With fewer hours of sunlight, you essentially have to make your own light and warmth.</p>
+            </article>
+          </div>
+        </div>
+      </section>
+      <section id="origins" class="composed composed-narrative-quote">
+        <div class="narrow">
+          <span class="eyebrow">III · ORIGINS</span>
+          <h2>Where the words come from</h2>
+          <p>It is speculated that hygge may derive from a homograph hug, originating in the 1560s word hugge, which means "to embrace." Hugge is of unknown origin but is highly associated with an Old Norse term, hygga, "to comfort," which comes from hugr, meaning "mood." In turn, hugr is a cognate of the Old English hycgan, and comes from the Germanic hugyan, meaning, like Old Norse hyggja, "to think, consider."</p>
+          <p>Hygge first appeared in Danish writing in the 19th century and has since evolved into the cultural idea known in Denmark and Norway today.</p>
+          <p>Mys, by contrast, is a younger creature in public life. The word fredagsmys first appeared in the 1990s, entered the dictionary in 2006, and became a semi-official national anthem three years later — through, of all things, a potato-crisp commercial.</p>
+          <p>A small linguistic warning: in Swedish the Danish word Hygge ought to be "Mys." Otherwise "Hygge" in Swedish means a forest area where most of the trees have been cut down. One word, two countries, two very different feelings.</p>
+        </div>
+      </section>
+      <figure class="composed composed-figure">
+        <img src="assets/origins.jpg" alt="A quiet northern interior at dusk" loading="lazy">
+        <figcaption>A Hygge moment — the small interior gestures that the Danes named first.</figcaption>
+      </figure>
+      <section id="comparison" class="composed composed-spec-table">
+        <div class="wrap">
+          <span class="eyebrow">IV · COMPARISON</span>
+          <h2>Similarities & differences, side by side</h2>
+          <div class="table-scroll">
+            <table>
+              <thead><tr><th></th><th>hygge</th><th>mys</th></tr></thead>
+              <tbody>
+              <tr>
+                <th scope="row">Country</th>
+                <td>Denmark</td><td>Sweden</td>
+              </tr>
+              <tr>
+                <th scope="row">Part of speech</th>
+                <td>noun (also verb, adj.)</td><td>noun, verb (att mysa), adj. (mysig)</td>
+              </tr>
+              <tr>
+                <th scope="row">Pronunciation</th>
+                <td>hue-guh / hooga</td><td>mees</td>
+              </tr>
+              <tr>
+                <th scope="row">Center of gravity</th>
+                <td>the home; atmosphere; interior design</td><td>Friday night; family; the everyday</td>
+              </tr>
+              <tr>
+                <th scope="row">Signature ritual</th>
+                <td>candles, slow dinners, presence</td><td>fredagsmys — trashy TV, finger food, the couch</td>
+              </tr>
+              <tr>
+                <th scope="row">Tone</th>
+                <td>curated, restorative, slightly aspirational</td><td>ordinary, witty, inclusive</td>
+              </tr>
+              <tr>
+                <th scope="row">Export status</th>
+                <td>global lifestyle brand since ~2016</td><td>mostly domestic; quietly Swedish</td>
+              </tr></tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+      <section class="composed composed-gallery">
+        <div class="wrap">
+          <div class="gallery-grid">
+            <figure><img src="assets/g1.jpg" alt="A cardamom bun on a plate" loading="lazy"><figcaption>bun</figcaption></figure>
+            <figure><img src="assets/g2.jpg" alt="Fika — coffee and a kanelbulle" loading="lazy"><figcaption>fika</figcaption></figure>
+            <figure><img src="assets/g3.jpg" alt="Fredagsmys spread with red wine" loading="lazy"><figcaption>fredagsmys</figcaption></figure>
+            <figure><img src="assets/g4.jpg" alt="A library lit by candlelight" loading="lazy"><figcaption>hygge</figcaption></figure>
+          </div>
+        </div>
+      </section>
+      <section class="composed composed-pull-quote">
+        <div class="narrow">
+          <span class="eyebrow">V · ON THE DIFFERENCE</span>
+          <h2>Where they actually diverge</h2>
+          <blockquote>The main difference lies in cultural interpretation and application. In Sweden, mys often extends to everyday moments and personal experiences, while in Denmark, hygge is more focused on creating a cozy environment, particularly in the home.</blockquote>
+        </div>
+      </section>
+      <section id="fredagsmys" class="composed composed-manifesto">
+        <div class="narrow">
+          <span class="eyebrow">VI · THE FRIDAY CASE</span>
+          <h2><em>Fredagsmys</em> — the most Swedish thing about mys</h2>
+          <p>If hygge has a flagship — candles in a Copenhagen window — mys has one too, and it is louder and a little sillier.</p>
+          <p>Mys has become so firmly identified with Friday nights, or fredagsmys – the "Friday cosy." Fredagsmys is a collective sigh of relief that the working / school week is over, and now it is time for the whole family to come together in front of some trashy TV with a plate of easy finger-food.</p>
+          <p>The word mys can also be tacked on to the end of loads of other words. Therefore "fredagsmys" which means Friday mys is definitely a thing, as is lördagsmys (Saturday mys), julmys (Christmas mys) and my personal favourite, kvällsmys (evening mys). It's just so versatile.</p>
+        </div>
+      </section>
+      <figure class="composed composed-figure">
+        <img src="assets/fredagsmys.jpg" alt="A Friday-night fredagsmys spread" loading="lazy">
+        <figcaption>Fredagsmys, in its native habitat — finger food, the couch, a long collective exhale.</figcaption>
+      </figure>
+      <section class="composed composed-three-pillars">
+        <div class="wrap">
+          <span class="eyebrow">VII · THE HYGGE CASE</span>
+          <h2>Hygge, codified</h2>
+          <div class="pillar-grid">
+            
+            <article class="pillar">
+              <div class="pillar-meta">
+                <span class="pillar-label">the book</span>
+                <span class="pillar-value">global phenomenon</span>
+              </div>
+              <p>"The Little Book of Hygge" became a publishing sensation and has been translated into 15 languages. It was swiftly followed by a second book from its author, "My Hygge Home," one of dozens on the market.</p>
+            </article>
+            <article class="pillar">
+              <div class="pillar-meta">
+                <span class="pillar-label">the manifesto</span>
+                <span class="pillar-value">ten ideals</span>
+              </div>
+              <p>Meik Wiking, the author of The Little Book of Hygge, created the Hygge Manifesto, which quantifies hygge into ten ideals: atmosphere, presence, pleasure, equality, gratitude, comfort, togetherness, harmony…</p>
+            </article>
+            <article class="pillar">
+              <div class="pillar-meta">
+                <span class="pillar-label">the aesthetic</span>
+                <span class="pillar-value">interior design</span>
+              </div>
+              <p>Hygge is also associated with contemporary interior design, particularly in Scandinavian-inspired homes, where it emphasizes comfort, simplicity, and the use of natural materials and soft lighting. Such interiors typically feature neutral colour palettes, uncluttered layouts, and a focus on everyday comfort and usability.</p>
+            </article>
+          </div>
+        </div>
+      </section>
+      <section class="composed composed-narrative-quote">
+        <div class="narrow">
+          <span class="eyebrow">VIII · CLOSING</span>
+          <h2>The same hour, two postures</h2>
+          <p>Hygge is the framed photograph of cosiness — staged, lit, perfected, then exported. Mys is the snapshot somebody took on the way to the couch.</p>
+          <p>Both are real. Both are answers to the same northern question: <em>what do we do with all this darkness?</em></p>
+          <p>One country answered with candles. The other answered with crisps.</p>
+        </div>
+      </section>
+      <figure class="composed composed-figure">
+        <img src="assets/origins.jpg" alt="A quiet northern interior at dusk" loading="lazy">
+        <figcaption>A Hygge moment — the small interior gestures that the Danes named first.</figcaption>
+      </figure>
+      <section class="composed composed-cta-band">
+        <div class="narrow" style="text-align:center">
+          <h2>Read more from the desk</h2>
+          <p>Essays on language, design, and the small words that organize whole cultures.</p>
+          <div class="cta-row">
+            <a class="btn-ghost" href="#subscribe">Subscribe</a><a class="btn-ghost" href="#archive">Archive</a>
+          </div>
+        </div>
+      </section>
+<div class="sources" style="max-width:680px;margin:0 auto;padding:48px clamp(20px,4vw,32px);font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-mute);text-align:center;border-top:1px solid var(--line)">Sources: The Local · Wikipedia: Hygge · Skjalden.com · Holly Loves · Hälsa Nutrition · quotations cited inline.</div>
+
+<footer>
+  <div class="wrap row">
+    <div class="made">Made for @marmo · 2026-05-23</div>
+    <div class="links"><a href="#origins">Origins</a><a href="#comparison">Comparison</a><a href="#fredagsmys">Fredagsmys</a></div>
+  </div>
+</footer>
+
+<a href="https://jelly-claw.com" target="_blank" rel="noopener" style="position:fixed;bottom:14px;right:14px;display:inline-flex;align-items:center;gap:6px;padding:6px 12px 6px 8px;background:rgba(19,19,19,.8);backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,.08);border-radius:999px;color:#6e6a62;font:11px/1 Inter,sans-serif;letter-spacing:.16em;text-decoration:none;text-transform:uppercase;z-index:9999"><img src="/favicon.svg" width="20" height="20" alt=""><span>genie</span></a>
+
+</body>
+</html>
